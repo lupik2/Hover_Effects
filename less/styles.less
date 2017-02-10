@@ -1,0 +1,243 @@
+body{
+	background: url('../img/bg.png');
+}
+
+@hovercolor: #a8c2f9; 
+@normalcolor: #3c72e5;
+.transition(@what: all,@time: 0.5s,@type: ease){
+	transition: @what @time ease;
+}
+
+@recthight: 95px;
+@recwidth: 250px;
+.rectangle{
+	width: @recwidth;
+	height: @recthight;
+	border: 1px solid black;
+	background: #a90329; 
+	background: -moz-linear-gradient(45deg, #a90329 0%, #8f0222 44%, #6d0019 100%); 
+	background: -webkit-linear-gradient(45deg, #a90329 0%,#8f0222 44%,#6d0019 100%); 
+	background: linear-gradient(45deg, #a90329 0%,#8f0222 44%,#6d0019 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=1 ); 
+	
+	font-family: 'Pangolin', cursive;	
+	border-radius: 15px;
+	
+	@fontsize: 25px;
+		span{
+			text-align: center;
+			font-size: @fontsize;
+			padding-top: (@recthight - @fontsize) / 2;
+			width: 100%;
+			height: 100%;
+			color: #282828;
+			display: block;
+			
+			.transition(color, 0.5s);
+			
+			&:hover{
+				color: white;
+				text-shadow: 1px -1px 0px rgba(0, 0, 0, 1);
+			} 
+		}
+	
+}
+
+.move(@dir, @dir2: 0){
+	
+	background: linear-gradient(to @dir, @normalcolor 50%, @hovercolor 50%);	
+    background-position:@dir;
+	
+	& when (@dir2 = 1){background: linear-gradient(135deg, @hovercolor 50%, @normalcolor 50%); }
+	& when (@dir2 = 2){background: linear-gradient(215deg, @hovercolor 50%, @normalcolor 50%); }
+	
+	& when (@dir = left) or (@dir = right){background-size: 200% 100%;}	
+	& when (@dir = top) or (@dir = bottom){background-size: 100% 200%;}	
+	
+	& when (@dir = top) and (@dir2 = 1) {background-size: 200% 200%;}	
+	
+	& when (@dir = top) and (@dir2 = 2) or (@dir = bottom) and (@dir2 = 2){background-size: 100% 550%;}	
+	
+	&:hover when (@dir = left) {	background-position:right;	}
+	&:hover when (@dir = right) {	background-position:left;}
+	&:hover when (@dir = bottom) {	background-position:top;}
+	&:hover when (@dir = top) {background-position:bottom;}
+	/*skosy*/
+	&:hover when (@dir = top)  and (@dir2 = 1) or (@dir = top)  and (@dir2 = 2){		
+			background-position: 100% 100%;
+	}
+}
+
+.to-left-hover{
+	.rectangle;
+	.transition(background-position, 0.8s);
+	.move(left);
+}
+.to-right-hover{
+	.rectangle;
+	.transition(background-position, 0.8s);
+	.move(right);
+}
+.to-bottom-hover{
+	.rectangle;
+	.transition(background-position, 0.8s);
+	.move(bottom);
+}
+.to-top-hover{
+	.rectangle;
+	.transition(background-position, 0.8s);
+	.move(top);
+}
+.to-left-top-hover{
+	.rectangle;
+	.transition(background-position, 0.8s);
+	.move(top, 1);
+}
+.to-right-top-hover{
+	.rectangle;
+	.transition(background-position, 0.9s);
+	.move(top, 2);
+}
+
+.grow(@value: 1, @value2: 1){
+		span{color: white;}
+	
+		&:hover{
+	
+			transform: scale(@value, @value2);			
+			& when(@value < 1){
+				-webkit-box-shadow: inset 0px 0px 38px 0px rgba(0,0,0,0.75);
+				-moz-box-shadow: inset 0px 0px 38px 0px rgba(0,0,0,0.75);
+				box-shadow: inset 0px 0px 38px 0px rgba(0,0,0,0.75);
+			}			
+			& when(@value > 1){
+				-webkit-box-shadow: 0px 0px 38px 0px rgba(0,0,0,0.75);
+				-moz-box-shadow: 0px 0px 38px 0px rgba(0,0,0,0.75);
+				box-shadow: 0px 0px 38px 0px rgba(0,0,0,0.75);
+			}
+		}
+}
+
+.grow-hover{
+	.rectangle;
+	.transition(all, 1.4s);
+	.grow(1.1, 1.1);
+}
+
+.decrease-hover{
+	.rectangle;
+	.transition(all, 1.4s);
+	.grow(.9, .9);
+}
+
+
+.button-down{
+	width: (@recwidth - 15);
+	height: (@recthight - 15);
+	border-radius: 10px;
+	
+	-webkit-box-shadow: 0px 7px 1px -2px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 7px 1px -2px rgba(0,0,0,0.75);
+	box-shadow: 0px 7px 1px -2px rgba(0,0,0,0.75);
+	background: transparency;
+	
+		.button-down-effect{
+			width: (@recwidth - 15);
+			height: (@recthight - 15);
+			background: rgb(238,238,238); /* Old browsers */
+			border: 1px solid black;
+			border-bottom: none;
+
+
+			margin: 0 auto;
+			
+			border-radius: 10px;
+						
+			.transition(all, 0.3s, ease);
+			
+			&:hover{				
+				background: rgb(206,220,231); /* Old browsers */
+			}
+			
+			&:active{
+				margin-top: 5px;
+					border-bottom: 1px solid black;
+			}
+			
+			@fontsize: 30px;
+				span{
+					font-family: 'Pangolin', cursive;	
+					text-align: center;
+					font-size: @fontsize;
+					padding-top: (@recthight - @fontsize) / 2;
+					width: 100%;
+					height: 100%;
+					color: #282828;
+					display: block;
+					
+					.transition(all, 0.5s);
+					
+					&:hover{
+						color: #4d4d4d;
+						text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+					} 
+				}
+		}
+}
+
+
+
+
+#wrapper{	padding-top: 7px;   width: 100%;}
+
+#hovers{
+  display: block;
+  margin: 0 auto;
+  text-align: center;  
+  width: 75%;
+}
+
+.clear_both{clear:both;}
+
+ul{
+	list-style-type: none;
+	li{
+		margin: 10px;
+		display: inline-block;
+	}
+}
+
+
+
+.effect7
+{
+    position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.effect7:before, .effect7:after
+{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:0;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.effect7:after
+{
+    right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
